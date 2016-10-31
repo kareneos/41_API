@@ -3,14 +3,23 @@ body{
 }
 .bg-gray{
     background-color: #E2E4E6;
+    float: left;
 }
-textarea {
-    width: 30%;
-    display: block;
+input, textarea{
+    max-width: 100%;
 }
 .mt-1{
     margin-top: 1%;
 }
 .ml-1{
     margin-left: 1%;
+}
+.bloqueGris{
+    width: 30%;
+}
+.bg-blue{
+    background-color: deepskyblue;
+}
+.gb-white{
+    background-color: wheat;
 }

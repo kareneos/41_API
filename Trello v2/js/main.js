@@ -9,52 +9,60 @@ boton1.onclick = function () {
 function muestraInput() {
     //crear div
     var div = document.createElement("div");
-    div.setAttribute("class", "inl bg-gray pd-3 ml-1");
+    div.setAttribute("class", "inl bg-gray pd-3 ml-1 mt-1 bloqueGris"); 
     tarjetas.appendChild(div);   
     //crea input nombre de la lista
     var input = document.createElement("input");
+    input.setAttribute("id","inputTituloLista");
     input.setAttribute("placeholder","Ingrese nombre de la lista");
     input.setAttribute("class", "mt-5");
-    input.focus();
     //crea botón guardar
     var boton2 = document.createElement("button");
     boton2.setAttribute("class","btn btn-primary btn-sm");
     //crear texto del boton guardar
-    var textoBoton2 = document.createTextNode("Guardar");
-    //Agregar texto a guardar
-    boton2.appendChild(textoBoton2);
-    //div para añarir input y boton gardar
+    boton2.innerHTML = "Guardar";
+    //añarir input y boton gardar en div
     div.appendChild(input);
     div.appendChild(boton2);
-
-
+    //focus en input
+    input.focus();
     //crear título al dar click en guardar
     boton2.onclick = function(){
         if (input.value.length == 0){
             alert("Ingrese nombre de la lista");
         }else{
-            //crea elemento
-            var div = document.createElement("div");
-            div.className = "nuevo";
+            //ocultar input y boton2
+            input.style.display="none";
+            boton2.style.display="none";
+            //crea titulo
+            var divTarjetas = document.createElement("div");
             var textoTitulo = input.value;
             var titulo = document.createTextNode(textoTitulo);
-            div.appendChild(titulo);
-            var titulo1 = document.getElementById("titulo");
-            titulo1.appendChild(div);
-           //Deja input en blanco
+            divTarjetas.appendChild(titulo);
+            div.insertBefore(divTarjetas, input);
+            //Deja input en blanco
             document.getElementById("inputTituloLista").value = "";
+            
             //Botón añadir una tarjeta
             var anadirTarjeta = document.createElement("button");     
             anadirTarjeta.setAttribute("class","btn btn-success btn-sm mt-1");
             var textoBotonTarjeta = document.createTextNode("Añadir una tarjeta...");
             anadirTarjeta.appendChild(textoBotonTarjeta);
-            titulo1.appendChild(anadirTarjeta);
+            divTarjetas.appendChild(anadirTarjeta);
             }
         //Textarea
         anadirTarjeta.onclick = function(){
             var textArea = document.createElement("textarea");
-            div.appendChild(textArea);
+            divTarjetas.insertBefore(textArea, anadirTarjeta);
             textArea.focus();
+            //Arrastrar TextArea
+            textArea.setAttribute("draggable","true");
+            //notar cuál elemento se arrastra
+            textArea.addEventListener('dragstart', iniciaArrastre, false);
+            function iniciaArrastre(){
+                this.style.opacity = "0.4";
+                textArea.setAttribute("class","bg-blue");
+            };
         };
     };
 }
